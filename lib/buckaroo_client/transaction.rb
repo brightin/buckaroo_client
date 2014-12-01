@@ -1,3 +1,5 @@
+require 'buckaroo_client/service'
+
 module BuckarooClient
   class Transaction
     attr_accessor :websitekey, :amount, :culture, :currency, :description, :invoicenumber
@@ -12,6 +14,13 @@ module BuckarooClient
       @invoicenumber = args[:invoicenumber]
       @service = args[:service]
       @additional_services = args.fetch(:additional_services, [])
+    end
+
+    def select_service(key, attributes = {}, &block)
+      service = Service.from_key(key, attributes)
+      yield service if block_given?
+      self.service = service
+      service
     end
 
     def gateway_attributes

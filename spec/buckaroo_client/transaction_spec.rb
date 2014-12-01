@@ -32,6 +32,31 @@ describe BuckarooClient::Transaction do
 
   end
 
+  describe '#select_service' do
+
+    let(:service) { double() }
+
+    before do
+      allow(BuckarooClient::Service).to receive(:from_key).with(:example, {}).and_return(service)
+    end
+
+    it 'returns created object' do
+      expect(subject.select_service(:example)).to eq service
+    end
+
+    it 'yields block with created service' do
+      subject.select_service(:example) do |s|
+        expect(s).to eq service
+      end
+    end
+
+    it 'links created service to transaction' do
+      subject.select_service(:example)
+      expect(subject.service).to eq service
+    end
+
+  end
+
   describe 'service=' do
 
   end

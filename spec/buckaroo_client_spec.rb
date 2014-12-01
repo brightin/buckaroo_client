@@ -1,6 +1,22 @@
 require 'buckaroo_client'
 
 describe BuckarooClient do
+  describe '.configuration' do
+    it 'returns an object' do
+      expect(described_class.configuration).not_to be_nil
+    end
+  end
+
+  describe '.configure' do
+    it 'allows configuration setting through a block' do
+      expect {
+        described_class.configure do |c|
+          c.websitekey = 'x'
+        end
+      }.not_to raise_error
+      expect(described_class.configuration.websitekey).to eq 'x'
+    end
+  end
 
   describe '.service' do
     let(:init_args) { {} }

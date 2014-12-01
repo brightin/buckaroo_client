@@ -4,11 +4,9 @@ module BuckarooClient
   module Gateway
     module NVP
       module Signature
-        def secret_key
-          ENV['BUCKAROO_CLIENT_SECRET'] || raise("BUCKAROO_CLIENT_SECRET not set")
-        end
+        def signature(input, secret: BuckarooClient.configuration.secret)
+          raise("Config value 'secret' missing") unless secret
 
-        def signature(input)
           # Base logic and comments taken from github.com/inventid/buckaroo
           #
           # This might actually need some explanation why we are converting do lowercase here
@@ -29,7 +27,7 @@ module BuckarooClient
           sorted_data = input.sort_by { |key, _| key.to_s.downcase }
           to_hash = ''
           sorted_data.each { |key, value| to_hash << key.to_s+'='+value.to_s }
-          to_hash << secret_key
+          to_hash << secret
           Digest::SHA1.hexdigest(to_hash)
         end
       end

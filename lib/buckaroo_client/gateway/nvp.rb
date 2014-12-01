@@ -1,5 +1,6 @@
 require 'addressable/uri'
 require 'digest/sha1'
+require 'buckaroo_client/configuration'
 require 'buckaroo_client/gateway/nvp/response'
 require 'buckaroo_client/gateway/nvp/signature'
 
@@ -8,12 +9,12 @@ module BuckarooClient
     module NVP
       extend Signature
 
-      def self.environment
-        ENV['BUCKAROO_CLIENT_ENVIRONMENT'] || 'test'
+      def self.websitekey
+        @websitekey ||= BuckarooClient.configuration.websitekey
       end
 
-      def self.websitekey
-        ENV['BUCKAROO_CLIENT_WEBSITEKEY'] || raise("BUCKAROO_CLIENT_WEBSITEKEY not set")
+      def self.environment
+        @environment ||= BuckarooClient.configuration.environment
       end
 
       def self.url(action: nil)
@@ -47,6 +48,7 @@ module BuckarooClient
 
       def self.do_request(action, buckaroo_variables, custom = {}, additional = {})
         nvp_data = prefixed_and_signed_request_data(buckaroo_variables, custom, additional)
+        raise 'websitekey missing' unless nvp_data['brq_websitekey']
         Response.for_action(action, post_data(action, nvp_data))
       end
 

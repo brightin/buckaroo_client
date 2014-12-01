@@ -20,16 +20,7 @@ module BuckarooClient
     Transaction.new(DEFAULT_TRANSACTION_ATTRIBUTES.merge(attributes))
   end
 
-  def self.service(name, attributes = {})
-    case name.to_s
-    when 'credit_management'
-      Service::CreditManagement.new
-    when 'invoice_specification'
-      Service::InvoiceSpecification.new
-    when 'pay_per_email'
-      Service::PayPerEmail.new(attributes)
-    else
-      raise ArgumentError.new("service '#{name}' does not exist")
-    end
+  def self.service(key, attributes = {})
+    Service.from_key(key.to_s, attributes)
   end
 end

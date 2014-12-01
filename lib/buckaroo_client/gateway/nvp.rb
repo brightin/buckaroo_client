@@ -39,8 +39,16 @@ module BuckarooClient
         do_request('invoiceinfo', buckaroo_variables, custom, additional)
       end
 
+      def self.refund_info(buckaroo_variables, custom: {}, additional: {})
+        do_request('refundinfo', buckaroo_variables, custom, additional)
+      end
+
       def self.transaction_request_specification(buckaroo_variables, custom: {}, additional: {})
         do_request('transactionrequestspecification', buckaroo_variables, custom, additional)
+      end
+
+      def self.cancel_transaction(buckaroo_variables, custom: {}, additional: {})
+        do_request('canceltransaction', buckaroo_variables, custom, additional)
       end
 
       private

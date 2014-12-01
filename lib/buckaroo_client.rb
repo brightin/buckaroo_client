@@ -21,6 +21,6 @@ module BuckarooClient
   end
 
   def self.service(key, attributes = {})
-    Service.from_key(key.to_s, attributes)
+    Service.from_key(key, attributes)
   end
 end

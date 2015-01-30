@@ -3,6 +3,11 @@ require 'forwardable'
 module BuckarooClient
   module Service
     class InvoiceSpecification
+      def initialize(args = {})
+        args.each do |key, value|
+          self.send "#{key}=", value
+        end
+      end
 
       def servicecode
         'InvoiceSpecification'

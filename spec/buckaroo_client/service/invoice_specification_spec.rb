@@ -14,6 +14,16 @@ describe BuckarooClient::Service::InvoiceSpecification do
     }.merge(opts)
   end
 
+  describe '#initialize' do
+    it 'allows empty attributes Hash to be passed in' do
+      expect { described_class.new({}) }.not_to raise_error
+    end
+
+    it 'raises error on invalid attributes' do
+      expect { described_class.new(invalid_name: 'Some Text') }.to raise_error
+    end
+  end
+
   describe 'servicecode' do
     it 'defaults to InvoiceSpecification' do
       expect(subject.servicecode).to eq 'InvoiceSpecification'

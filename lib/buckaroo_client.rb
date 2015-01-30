@@ -23,9 +23,9 @@ module BuckarooClient
   def self.service(name, attributes = {})
     case name.to_s
     when 'credit_management'
-      Service::CreditManagement.new
+      Service::CreditManagement.new(attributes)
     when 'invoice_specification'
-      Service::InvoiceSpecification.new
+      Service::InvoiceSpecification.new(attributes)
     when 'pay_per_email'
       Service::PayPerEmail.new(attributes)
     else

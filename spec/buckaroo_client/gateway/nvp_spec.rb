@@ -68,8 +68,8 @@ describe BuckarooClient::Gateway::NVP do
       "4|Totaal inclusief BTW|€|120.9879||||",
 
     "brq_service_creditmanagement_action" => "invoice",
-    "brq_InvoiceDate" => "2014-11-20",
-    "brq_DateDue" => "2014-12-04",
+    "brq_InvoiceDate" => Date.today.to_s,
+    "brq_DateDue" => Date.today.next_day(14).to_s,
     "brq_AmountVat" => "20.9979",
     "brq_service_creditmanagement_MaxReminderLevel" => "3",
     # "brq_service_creditmanagement_PaymentMethodsAllowed" => "",

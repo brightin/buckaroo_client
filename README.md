@@ -43,44 +43,46 @@ end
 
 ### Creating a transaction
 
-Start by creating a base transaction:
+Start by creating a transaction:
 
 ```ruby
-transaction = BuckarooClient.transaction(amount: 9.99, description: 'Payment')
+transaction = BuckarooClient.transaction(
+  amount: 9.99,
+  description: 'Payment',
+  # ... more attributes,
+  service: BuckarooClient.service(
+    :pay_per_email,
+    :customeremail: 'example@example.com',
+    # ... more attributes,
+  ),
+  additional_services: [
+    # see `BuckarooClient.service` for available additional services,
+    # such as :invoice_specification and :credit_management.
+  ]
+)
 ```
 
-After that, you must select a primary service:
-
-```ruby
-transaction.select_service(:pay_per_email) do |s|
-  s.customeremail = 'example@example.com'
-  # ... and some more values
-end
-```
-
-Optionally select additional payment services as you please:
-
-```ruby
-transaction.select_additional_service(:invoice_specification) do |s|
-  s.add_invoice_line(description: 'Some Product', amount: 10.00)
-  s.add_total_line(description: 'Total', amount: 10.00)
-end
-transaction.select_additional_service(:credit_management) do |s|
-  s.invoice_date = Date.current
-  s.date_due = s.invoice_date.next_day(14)
-end
-```
+The `service` and `additional_services` objects can be quite tricky to configure
+correctly. See the source code and specs for additional information.
 
 ### Sending data to Buckaroo Payment Engine
 
-Use `BuckarooClient.gateway` to set up Buckaroo NVP Gateway transactions:
+Call the `gateway_attributes` method on your transaction instance to retrieve
+request parameters suitable for Buckaroo to process:
 
 ```ruby
-BuckarooClient.gateway.transaction_request(transaction.gateway_attributes)
+request_params = transaction.gateway_attributes
+```
+
+Use `BuckarooClient.gateway` to set up Buckaroo NVP Gateway transactions. In
+most cases, you probably only need `gateway.transaction_request`. Send the
+request parameters like this:
+
+```ruby
+BuckarooClient.gateway.transaction_request(request_params)
 ```
 
 This will send a signed `POST` request to the Buckaroo gateway.
-
 
 ## Known limitations
 

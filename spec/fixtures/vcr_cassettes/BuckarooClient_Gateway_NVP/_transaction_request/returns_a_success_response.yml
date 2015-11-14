@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://testcheckout.buckaroo.nl/nvp/?op=transactionrequest
+    body:
+      encoding: US-ASCII
+      string: brq_channel=BACKOFFICE&brq_payment_method=payperemail&brq_amount=99.99&brq_currency=EUR&brq_culture=nl-NL&brq_invoicenumber=0000&brq_description=Test+payperemail+transaction&brq_service_payperemail_action=paymentinvitation&brq_service_payperemail_customergender=1&brq_service_payperemail_customeremail=example%40example.com&brq_service_payperemail_customerfirstname=Cus&brq_service_payperemail_merchantsendsemail=TRUE&brq_service_payperemail_customerlastname=Tomer&brq_websitekey=a8Polegx6i&brq_signature=d74744dd05edbe80bd7d1269f2c5cd488ef00541
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - testcheckout.buckaroo.nl
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 14 Nov 2015 22:47:59 GMT
+      Server:
+      - Microsoft-IIS/8.5
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/plain; charset=utf-8
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Content-Length:
+      - '667'
+      Set-Cookie:
+      - SERVERIDB=SB2; path=/
+      - SERVERIDF=SF3; path=/
+    body:
+      encoding: UTF-8
+      string: BRQ_AMOUNT=99.99&BRQ_APIRESULT=Waiting&BRQ_CURRENCY=EUR&BRQ_CUSTOMER_NAME=Cus+Tomer&BRQ_DESCRIPTION=Test+payperemail+transaction&BRQ_INVOICENUMBER=0000&BRQ_MUTATIONTYPE=Informational&BRQ_SERVICE_PAYPEREMAIL_EXPIRATIONDATE=2016-11-14&BRQ_SERVICE_PAYPEREMAIL_PAYLINK=https%3a%2f%2ftestcheckout.buckaroo.nl%2fhtml%2f%3fbrq_paydirect_trx%3d66B37CB9B0EC450B9FDEC17198EF2D0F&BRQ_STATUSCODE=792&BRQ_STATUSMESSAGE=Awaiting+Consumer&BRQ_TEST=true&BRQ_TIMESTAMP=2015-11-14+23%3a47%3a58&BRQ_TRANSACTION_METHOD=payperemail&BRQ_TRANSACTION_TYPE=I100&BRQ_TRANSACTIONS=66B37CB9B0EC450B9FDEC17198EF2D0F&BRQ_WEBSITEKEY=a8Polegx6i&BRQ_SIGNATURE=caaddd1638a6aa74c2ce0e95976054f7f2c7fa0c
+    http_version: 
+  recorded_at: Sat, 14 Nov 2015 22:48:45 GMT
+recorded_with: VCR 3.0.0

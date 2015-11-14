@@ -1,8 +1,8 @@
 require 'buckaroo_client/gateway/nvp'
 require 'dotenv'
+require_relative '../../support/vcr'
 
-describe BuckarooClient::Gateway::NVP do
-
+RSpec.describe BuckarooClient::Gateway::NVP, :vcr do
   before :all do
     # Load BUCKAROO_CLIENT_* variables from .env file (not checked in).
     # This allows us to send actual test payments in development mode
@@ -112,7 +112,6 @@ describe BuckarooClient::Gateway::NVP do
   end
 
   describe '.transaction_request' do
-
     it 'raises error if websitekey not set' do
       allow(described_class).to receive(:websitekey).and_return(nil)
       expect {

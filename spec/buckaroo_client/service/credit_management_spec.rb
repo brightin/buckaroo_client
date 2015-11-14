@@ -9,7 +9,7 @@ describe BuckarooClient::Service::CreditManagement do
     end
 
     it 'raises error on invalid attributes' do
-      expect { described_class.new(invalid_name: 'Some Text') }.to raise_error
+      expect { described_class.new(invalid_name: 'Some Text') }.to raise_error(NoMethodError)
     end
   end
 

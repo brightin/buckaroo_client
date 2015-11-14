@@ -52,8 +52,8 @@ transaction = BuckarooClient.transaction(
   # ... more attributes,
   service: BuckarooClient.service(
     :pay_per_email,
-    :customeremail: 'example@example.com',
-    # ... more attributes,
+    customeremail: 'example@example.com',
+    # ... more attributes
   ),
   additional_services: [
     # see `BuckarooClient.service` for available additional services,

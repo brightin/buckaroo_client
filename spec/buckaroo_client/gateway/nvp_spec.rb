@@ -1,12 +1,13 @@
 require 'buckaroo_client/gateway/nvp'
 require 'dotenv'
+require_relative '../../support/vcr'
 
-describe BuckarooClient::Gateway::NVP do
-
+RSpec.describe BuckarooClient::Gateway::NVP, :vcr do
   before :all do
+    # Load BUCKAROO_CLIENT_* variables from .env file (not checked in).
+    # This allows us to send actual test payments in development mode
+    # without exposing any secrets.
     Dotenv.load
-    ENV['BUCKAROO_CLIENT_WEBSITEKEY'] || raise("Please set BUCKAROO_CLIENT_WEBSITEKEY ENV variable")
-    ENV['BUCKAROO_CLIENT_SECRET'] || raise("Please set BUCKAROO_CLIENT_SECRET ENV variable")
   end
 
   def random_invoice_number
@@ -99,37 +100,25 @@ describe BuckarooClient::Gateway::NVP do
     "brq_service_creditmanagement_CompanyVATApplicable" => "TRUE"
   }
 
-  describe '.websitekey' do
-    it 'raises error if not set' do
-      old_value = ENV.delete('BUCKAROO_CLIENT_WEBSITEKEY')
-      expect { described_class.websitekey }.to raise_error
-      ENV['BUCKAROO_CLIENT_WEBSITEKEY'] = old_value
-    end
-  end
-
-  describe '.secret_key' do
-    it 'raises error if not set' do
-      old_value = ENV.delete('BUCKAROO_CLIENT_SECRET')
-      expect { described_class.secret_key }.to raise_error
-      ENV['BUCKAROO_CLIENT_SECRET'] = old_value
-    end
-  end
-
   describe '.url' do
     it 'defaults to test location' do
-      expect(ENV['BUCKAROO_CLIENT_ENVIRONMENT']).to eq nil
       expect(described_class.url.to_s).to eq 'https://testcheckout.buckaroo.nl/nvp/'
     end
 
     it 'returns live location if live mode enabled' do
-      expect(ENV['BUCKAROO_CLIENT_ENVIRONMENT']).to eq nil
-      ENV['BUCKAROO_CLIENT_ENVIRONMENT'] = 'production'
+      allow(described_class).to receive(:environment).and_return('production')
       expect(described_class.url.to_s).to eq 'https://checkout.buckaroo.nl/nvp/'
-      ENV.delete('BUCKAROO_CLIENT_ENVIRONMENT')
     end
   end
 
   describe '.transaction_request' do
+    it 'raises error if websitekey not set' do
+      allow(described_class).to receive(:websitekey).and_return(nil)
+      expect {
+        described_class.transaction_request(TRANSACTION_REQUEST_ATTRIBUTES)
+      }.to raise_error('websitekey missing')
+    end
+
     it 'returns a success response' do
       response = described_class.transaction_request(TRANSACTION_REQUEST_ATTRIBUTES)
       # Success response code for PayPerEmail: 792 Awaiting Consumer

@@ -1,12 +1,18 @@
+require 'buckaroo_client/configuration'
 require 'buckaroo_client/gateway'
 require 'buckaroo_client/service'
 require 'buckaroo_client/transaction'
 require 'buckaroo_client/version'
 
 module BuckarooClient
-  DEFAULT_TRANSACTION_ATTRIBUTES = {
-    websitekey: ENV['BUCKAROO_CLIENT_WEBSITEKEY']
-  }
+
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.configure
+    yield configuration if block_given?
+  end
 
   def self.gateway
     Gateway::NVP
@@ -17,7 +23,7 @@ module BuckarooClient
   end
 
   def self.transaction(attributes = {})
-    Transaction.new(DEFAULT_TRANSACTION_ATTRIBUTES.merge(attributes))
+    Transaction.new(default_transaction_attributes.merge(attributes))
   end
 
   def self.service(name, attributes = {})
@@ -32,4 +38,13 @@ module BuckarooClient
       raise ArgumentError.new("service '#{name}' does not exist")
     end
   end
+
+  protected
+
+  def self.default_transaction_attributes
+    {
+      websitekey: configuration.websitekey
+    }
+  end
+
 end

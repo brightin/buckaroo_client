@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://testcheckout.buckaroo.nl/nvp/?op=transactionrequest
+    body:
+      encoding: US-ASCII
+      string: brq_amount=120.9978&brq_culture=nl-NL&brq_currency=EUR&brq_description=Testfactuur&brq_service_payperemail_action=paymentinvitation&brq_service_payperemail_customergender=9&brq_service_payperemail_customeremail=example%40example.com&brq_service_payperemail_customerfirstname=Cus&brq_service_payperemail_customerlastname=Tomer&brq_service_payperemail_merchantsendsemail=TRUE&brq_additional_service=creditmanagement%2Cinvoicespecification&brq_service_InvoiceSpecification_action=ExtraInfo&brq_service_InvoiceSpecification_InvoiceLine_1=1%7CFactuurregelomschrijving%7C%E2%82%AC%7C99.99%7C20.9979%7C%7C%7C&brq_service_InvoiceSpecification_SubTotalLine_1=2%7CTotaal+exclusief+BTW%7C%E2%82%AC%7C99.99%7C%7C%7C%7C&brq_service_InvoiceSpecification_InvoiceLine_2=3%7CTotaal+BTW%7C%E2%82%AC%7C20.9979%7C%7C%7C%7C&brq_service_InvoiceSpecification_TotalLine_1=4%7CTotaal+inclusief+BTW%7C%E2%82%AC%7C120.9879%7C%7C%7C%7C&brq_service_creditmanagement_action=invoice&brq_InvoiceDate=2016-11-20&brq_DateDue=2016-12-04&brq_AmountVat=20.9979&brq_service_creditmanagement_MaxReminderLevel=3&brq_CustomerType=2&brq_CustomerCode=14342&brq_CustomerTitle=&brq_CustomerInitials=&brq_CustomerFirstName=Cus&brq_CustomerLastNamePrefix=&brq_CustomerLastName=Tomer&brq_CustomerGender=9&brq_service_creditmanagement_CustomerBirthDate=&brq_CustomerEmail=example%40example.com&brq_PhoneNumber=%2B31999999999&brq_MobilePhoneNumber=&brq_FaxNumber=&brq_Address_Street_1=Straatlaan&brq_Address_HouseNumber_1=999&brq_Address_HouseNumberSuffix_1=&brq_Address_ZipCode_1=9999+ZZ&brq_Address_City_1=Stad&brq_Address_State_1=&brq_Address_Country_1=NL&brq_service_creditmanagement_CustomerAccountNumber=&brq_service_creditmanagement_CompanyName=Organization1&brq_service_creditmanagement_CompanyCOCRegistration=A99&brq_service_creditmanagement_CompanyVATApplicable=TRUE&brq_invoicenumber=TEST45555916827999447585837566&brq_websitekey=a8Polegx6i&brq_payment_method=payperemail&brq_signature=b63068a230513f324878c2f6c13e44db1371060a
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - testcheckout.buckaroo.nl
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 14 Nov 2015 22:47:59 GMT
+      Server:
+      - Microsoft-IIS/8.5
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubDomains
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/plain; charset=utf-8
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Content-Length:
+      - '677'
+      Set-Cookie:
+      - SERVERIDB=SB2; path=/
+      - SERVERIDF=SF2; path=/
+    body:
+      encoding: UTF-8
+      string: BRQ_AMOUNT=121.00&BRQ_APIRESULT=Waiting&BRQ_CURRENCY=EUR&BRQ_CUSTOMER_NAME=Cus+Tomer&BRQ_DESCRIPTION=Testfactuur&BRQ_INVOICENUMBER=TEST45555916827999447585837566&BRQ_MUTATIONTYPE=Informational&BRQ_SERVICE_PAYPEREMAIL_EXPIRATIONDATE=2016-11-14&BRQ_SERVICE_PAYPEREMAIL_PAYLINK=https%3a%2f%2ftestcheckout.buckaroo.nl%2fhtml%2f%3fbrq_paydirect_trx%3d0AD6F7680E9448FBAD06F58D4C75C792&BRQ_STATUSCODE=792&BRQ_STATUSMESSAGE=Awaiting+Consumer&BRQ_TEST=true&BRQ_TIMESTAMP=2015-11-14+23%3a47%3a59&BRQ_TRANSACTION_METHOD=payperemail&BRQ_TRANSACTION_TYPE=I100&BRQ_TRANSACTIONS=0AD6F7680E9448FBAD06F58D4C75C792&BRQ_WEBSITEKEY=a8Polegx6i&BRQ_SIGNATURE=551f86885593ec9fb81878127e29c21b050dd51e
+    http_version: 
+  recorded_at: Sat, 14 Nov 2015 22:48:46 GMT
+recorded_with: VCR 3.0.0

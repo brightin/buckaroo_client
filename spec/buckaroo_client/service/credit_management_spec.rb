@@ -34,7 +34,7 @@ describe BuckarooClient::Service::CreditManagement do
 
       it 'converts Boolean attributes to uppercase String' do
         subject.company_vat_applicable = true
-        expect(subject.gateway_attributes['service_creditmanagement_CompanyVATApplicable']).to eq 'TRUE'
+        expect(subject.gateway_attributes['Service_creditmanagement3_Company_VatApplicable']).to eq 'TRUE'
       end
 
       it 'filters out nil values' do
